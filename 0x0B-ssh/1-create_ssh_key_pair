@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# create ssh keys with bit 4096 and save in school
+
+ssh-keygen -b 4096 -f school -N betty
