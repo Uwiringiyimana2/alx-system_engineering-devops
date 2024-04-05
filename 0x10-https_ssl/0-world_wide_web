@@ -7,6 +7,7 @@ domain_information () {
     echo "$2 $line" | awk '{print "The subdomain " $1 " is a " $2 " record and points to " $3}'
 }
 
+main () {
 if [ "$#" == 1 ]
 then
   domain_information "$1" "www"
@@ -17,3 +18,6 @@ elif [ "$#" == 2 ]
 then
   domain_information "$1" "$2"
 fi
+}
+
+main "$@"
