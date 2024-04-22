@@ -12,14 +12,9 @@ if __name__ == "__main__":
     username = user.get("username")
     todos = requests.get(url + "todos", params={"userId": user_id}).json()
 
-    data_to_export = {user_id: []}
-    for t in todos:
-        task_info = {
-                "tasks": t.get("title"),
-                "completed": t.get("completed"),
-                "username": username,
-        }
-        data_to_export[user_id].append(task_info)
-
     with open("{}.json".format(user_id), "w") as jsonfile:
-        json.dump(data_to_export, jsonfile)
+        json.dump({user_id: [{
+            "tasks": t.get("title"),
+            "completed": t.get("completed"),
+            "username": username
+        } for t in todos]}, jsonfile)
