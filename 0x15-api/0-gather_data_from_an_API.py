@@ -8,10 +8,10 @@ import sys
 
 if __name__ == "__main__":
     url = "https://jsonplaceholder.typicode.com/"
-    user_id = sys.argv[1]
-    user_res = requests.get(url + "users/{}".format(user_id))
+    employee_id = sys.argv[1]
+    user_res = requests.get(url + "users/{}".format(employee_id))
     user = user_res.json()
-    params = {"userId": user_id}
+    params = {"userId": employee_id}
     todos_res = requests.get(url + "todos", params=params)
     todos = todos_res.json()
     completed = []
