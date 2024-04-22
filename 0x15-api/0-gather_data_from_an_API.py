@@ -11,7 +11,7 @@ if __name__ == "__main__":
     user_id = sys.argv[1]
     user_res = requests.get(url + "users/{}".format(user_id))
     user = user_res.json()
-    params = {"userid": user_id}
+    params = {"userId": user_id}
     todos_res = requests.get(url + "todos", params=params)
     todos = todos_res.json()
     completed = []
