@@ -1,0 +1,50 @@
+# 5-app_server-nginx_config
+
+server {
+    # Listen on port 80
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    # use IP as domain name
+    server_name 35.175.105.0;
+
+    # Customize response header
+    add_header X-Served-By 516072-web-01;
+
+    # Serve /airbnb-onepage/ route from AirBnB_clone_v2
+    location = /airbnb-onepage/ {
+        proxy_pass http://127.0.0.1:5000/airbnb-onepage/;
+     }
+
+    # serve /airbnb-dynamic/number_odd_or_even/(any integer) 
+    location ~ /airbnb-dynamic/number_odd_or_even/(\d+) {
+        proxy_pass http://127.0.0.1:5001/number_odd_or_even/$1;
+    }
+
+    # Serve  route /api/ points to a Gunicorn instance listening on port 5002
+    location /api {
+        proxy_pass http://127.0.0.1:5002/api;
+    }
+
+    # serve content from web_dynamic/2-hbnb.py on port 5003
+    location / {
+        proxy_pass http://127.0.0.1:5003/2-hbnb;
+    }
+
+    # Serves static content 
+    location /static {
+        alias web_dynamic/static/;
+    }
+
+    # handles redirection
+    location /redirect_me {
+        return 301 https://github.com/Uwiringiyimana2;
+    }
+
+    # Error page
+    error_page 404 /404.html;
+    location /404 {
+      root /var/www/html;
+      internal;
+    }
+}
